@@ -1,0 +1,7 @@
+bcrypt==4.1.2
+cffi==1.16.0
+cryptography==3.4.7
+passlib==1.7.4
+prettytable==3.9.0
+pycparser==2.21
+wcwidth==0.2.12
