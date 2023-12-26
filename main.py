@@ -6,6 +6,16 @@ import sqlite3
 from getpass import getpass
 from passlib.context import CryptContext
 from prettytable import PrettyTable
+import sys
+from colorama import init, Fore
+
+init(autoreset=True)  # Initialize colorama
+
+sys.tracebacklimit = 0
+
+# Success and error message colors
+SUCCESS_COLOR = Fore.GREEN
+ERROR_COLOR = Fore.RED
 
 # Create a CryptContext instance with a suitable algorithm
 pwd_context = CryptContext(schemes=["bcrypt"])
@@ -52,7 +62,7 @@ def register():
 
     cursor.execute("INSERT INTO users (username, master_password) VALUES (?, ?)", (username, hashed_master_password))
     conn.commit()
-    print("Registration successful!")
+    print(SUCCESS_COLOR + "Registration successful!" + Fore.RESET)
 
 # User login
 def login():
@@ -67,12 +77,12 @@ def login():
 
         # Verify the password using passlib's verify method
         if pwd_context.verify(master_password, stored_hashed_password):
-            print("Login successful!")
+            print(SUCCESS_COLOR + "Login successful!" + Fore.RESET)
             return user_id
         else:
-            print("Invalid master password.")
+            print(ERROR_COLOR + "Invalid master password." + Fore.RESET)
     else:
-        print("User not found.")
+        print(ERROR_COLOR + "User not found." + Fore.RESET)
 
     return None
 
