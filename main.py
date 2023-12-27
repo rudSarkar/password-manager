@@ -121,7 +121,7 @@ while True:
 
             print(table)
         else:
-            print("No passwords found for the user.")
+            print(ERROR_COLOR + "No passwords found for the user." + Fore.RESET)
 
 
     elif choice == "2":
@@ -132,7 +132,7 @@ while True:
         cursor.execute("INSERT INTO passwords (user_id, website_name, username, password) VALUES (?, ?, ?, ?)",
                        (user_id, website_name, username, password))
         conn.commit()
-        print("Password added successfully.")
+        print(SUCCESS_COLOR + "Password added successfully."  + Fore.RESET)
 
     elif choice == "3":
         website_name = input("Enter website name for which you want to modify (update) the password: ")
@@ -145,22 +145,22 @@ while True:
             new_password = input("Enter the new password: ")
             cursor.execute("UPDATE passwords SET password=? WHERE user_id=? AND website_name=?", (new_password, user_id, website_name))
         else:
-            print("Invalid choice.")
+            print(ERROR_COLOR + "Invalid choice." + Fore.RESET)
 
         conn.commit()
-        print("Password modified successfully.")
+        print(SUCCESS_COLOR + "Password modified successfully." + Fore.RESET)
 
     elif choice == "4":
         website_name = input("Enter website name for which you want to delete the password: ")
         cursor.execute("DELETE FROM passwords WHERE user_id=? AND website_name=?", (user_id, website_name))
         conn.commit()
-        print("Password deleted successfully.")
+        print(SUCCESS_COLOR + "Password deleted successfully." + Fore.RESET)
 
     elif choice == "5":
         print("Exiting the password manager. Goodbye!")
         break
 
     else:
-        print("Invalid choice. Please enter a number between 1 and 5.")
+        print(ERROR_COLOR + "Invalid choice. Please enter a number between 1 and 5." + Fore.RESET)
 
 conn.close()
